@@ -5,8 +5,8 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="flex items-center justify-center pt-16"
-      style={{ minHeight: '80vh', background: 'rgba(248,250,252,0.88)' }}
+      className="flex items-center justify-center pt-24 pb-16 sm:pt-16 sm:min-h-[80vh]"
+      style={{ background: 'rgba(248,250,252,0.88)' }}
     >
       <div className="text-center w-full px-5 sm:px-8 max-w-3xl mx-auto">
         <p className="font-body text-xs font-semibold tracking-widest uppercase text-sky mb-5">
@@ -24,7 +24,8 @@ export default function Hero() {
           {hero.subheadline}
         </p>
         <a
-          href="#demo"
+          href="https://calendly.com/sourabhborase/30min"
+          target="_blank" rel="noopener noreferrer"
           className="inline-block font-heading font-bold text-white bg-navy hover:bg-[#162f54] transition-colors px-9 py-4 rounded-lg text-base"
         >
           {hero.cta1}

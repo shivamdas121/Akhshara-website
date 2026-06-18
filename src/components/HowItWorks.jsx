@@ -167,7 +167,7 @@ const onboardingSteps = [
 
 export default function HowItWorks() {
   return (
-    <section id="how-it-works" className="py-20 px-4 sm:px-6" style={{ background: 'rgba(248,250,252,0.88)' }}>
+    <section id="how-it-works" className="pt-10 pb-16 px-4 sm:px-6 sm:py-20" style={{ background: 'rgba(248,250,252,0.88)' }}>
       <div className="max-w-2xl mx-auto">
 
         {/* Header */}

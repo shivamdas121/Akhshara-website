@@ -81,7 +81,7 @@ export default function Navbar() {
             </a>
           ))}
           <a
-            href="#demo"
+            href="https://calendly.com/sourabhborase/30min" target="_blank" rel="noopener noreferrer"
             style={{
               fontFamily: 'Poppins, sans-serif',
               fontWeight: 700,
@@ -104,7 +104,7 @@ export default function Navbar() {
         {/* Mobile: CTA + hamburger */}
         <div className="flex md:hidden items-center" style={{ gap: '12px' }}>
           <a
-            href="#demo"
+            href="https://calendly.com/sourabhborase/30min" target="_blank" rel="noopener noreferrer"
             style={{
               fontFamily: 'Poppins, sans-serif',
               fontWeight: 700,

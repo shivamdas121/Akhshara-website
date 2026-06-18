@@ -98,7 +98,8 @@ export default function ProofDemo() {
 
         <div className="text-center">
           <a
-            href="#"
+            href="https://calendly.com/sourabhborase/30min"
+            target="_blank" rel="noopener noreferrer"
             className="inline-block font-heading font-bold text-white bg-navy hover:bg-[#162f54] transition-colors px-8 py-4 rounded-lg text-base"
           >
             {proof.cta2}

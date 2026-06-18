@@ -78,7 +78,7 @@ const COL = '1fr 72px 22px 90px 72px'
 export default function TheOffer() {
   const { offer } = content
   return (
-    <section id="impact" className="py-10 px-4 sm:px-6" style={{ background: 'rgba(248,250,252,0.88)' }}>
+    <section id="impact" className="pt-8 pb-12 px-4 sm:px-6 sm:py-16" style={{ background: 'rgba(248,250,252,0.88)' }}>
       <div className="max-w-3xl mx-auto">
 
         {/* Header */}

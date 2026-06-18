@@ -12,7 +12,8 @@ export default function FinalCTA() {
           {finalCta.subheadline}
         </p>
         <a
-          href="#"
+          href="https://calendly.com/sourabhborase/30min"
+          target="_blank" rel="noopener noreferrer"
           className="inline-block font-heading font-bold text-white bg-sky hover:bg-[#1558c0] transition-colors px-10 py-4 rounded-lg text-base"
         >
           {finalCta.cta3}
