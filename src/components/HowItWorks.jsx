@@ -85,9 +85,8 @@ function SourcePill({ icon, label }) {
       background: '#fff',
       border: `1px solid #E2E8F0`,
       borderRadius: '12px',
-      padding: '10px 16px',
+      padding: '8px 10px',
       boxShadow: '0 2px 8px rgba(15,42,74,0.06)',
-      flex: 1,
       minWidth: 0,
     }}>
       <div style={{ width: 36, height: 36, borderRadius: 9, background: LIGHT_SKY, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
@@ -188,10 +187,10 @@ export default function HowItWorks() {
         <div>
 
           {/* Source platforms */}
-          <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+          <div className="grid grid-cols-3 gap-2 sm:gap-3">
             <SourcePill icon={<IconMeta />} label="Meta Ads" />
             <SourcePill icon={<IconBuilding />} label="MagicBricks" />
-            <SourcePill icon={<IconBuilding />} label="99Acres / Housing.com" />
+            <SourcePill icon={<IconBuilding />} label="99Acres" />
           </div>
 
           <ConvergeArrow />

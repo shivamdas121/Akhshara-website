@@ -6,7 +6,7 @@ export default function Hero() {
     <section
       id="hero"
       className="flex items-center justify-center pt-16"
-      style={{ minHeight: '88vh', background: 'rgba(248,250,252,0.88)' }}
+      style={{ minHeight: '80vh', background: 'rgba(248,250,252,0.88)' }}
     >
       <div className="text-center w-full px-5 sm:px-8 max-w-3xl mx-auto">
         <p className="font-body text-xs font-semibold tracking-widest uppercase text-sky mb-5">

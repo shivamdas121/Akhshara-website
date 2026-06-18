@@ -56,7 +56,7 @@ export default function Navbar() {
               letterSpacing: '-0.01em',
             }}
           >
-            Akshara<span style={{ color: '#1D6FE8' }}>.</span>
+            Akshara Tech<span style={{ color: '#1D6FE8' }}>.</span>
           </span>
         </a>
 
