@@ -81,18 +81,19 @@ function IconReminder() {
 function SourcePill({ icon, label }) {
   return (
     <div style={{
-      display: 'flex', alignItems: 'center', gap: '8px',
+      display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px',
       background: '#fff',
       border: `1px solid #E2E8F0`,
       borderRadius: '12px',
-      padding: '8px 10px',
+      padding: '12px 8px',
       boxShadow: '0 2px 8px rgba(15,42,74,0.06)',
       minWidth: 0,
+      textAlign: 'center',
     }}>
-      <div style={{ width: 36, height: 36, borderRadius: 9, background: LIGHT_SKY, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+      <div style={{ width: 34, height: 34, borderRadius: 9, background: LIGHT_SKY, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
         {icon}
       </div>
-      <span style={{ fontFamily: 'Inter, sans-serif', fontWeight: 600, fontSize: '0.78rem', color: NAVY, lineHeight: 1.3 }}>
+      <span style={{ fontFamily: 'Inter, sans-serif', fontWeight: 600, fontSize: '0.7rem', color: NAVY, lineHeight: 1.3, wordBreak: 'break-word' }}>
         {label}
       </span>
     </div>
