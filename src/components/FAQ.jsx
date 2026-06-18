@@ -44,7 +44,7 @@ export default function FAQ() {
   }
 
   return (
-    <section className="py-24 px-6" style={{ background: 'rgba(248,250,252,0.88)' }}>
+    <section id="faq" className="py-24 px-6" style={{ background: 'rgba(248,250,252,0.88)' }}>
       <div className="max-w-3xl mx-auto">
         <p className="font-heading font-bold text-xs tracking-widest uppercase text-sky mb-10">
           {faq.eyebrow}

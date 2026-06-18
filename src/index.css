@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scroll-behavior: smooth;
+}
+
+section[id] {
+  scroll-margin-top: 64px;
+}
+
 @layer base {
   body {
     font-family: 'Inter', sans-serif;

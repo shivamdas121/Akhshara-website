@@ -2,8 +2,8 @@ const content = {
   hero: {
     eyebrow: 'For real estate developers and brokers',
     headline_part1: 'Get ',
-    headline_highlight: '50% more site visits',
-    headline_part2: ', guaranteed on your existing ad spend.',
+    headline_highlight: '50% More Site Visits',
+    headline_part2: ', Guaranteed On Your Existing Ad Spend.',
     subheadline:
       'Our AI sales infrastructure calls every lead within one minute, qualifies them, and books the site visit. All day, every day.',
     cta1: 'Book a call',
@@ -11,7 +11,7 @@ const content = {
 
   gap: {
     eyebrow: 'The gap',
-    headline: 'Same ad spend. Same leads. One difference: speed.',
+    headline: 'Same Ad Spend. Same Leads. One Difference: Speed.',
     introLine:
       'In India, even with a sales team, leads are typically called back in 2 hours at best, often 2 days. By then, the lead has already moved on.',
     beforeLabel: 'Without AI Sales Infrastructure',
@@ -42,6 +42,8 @@ const content = {
       { label: 'Site Visits\nBooked', before: '80', after: '140', pct: '75' },
       { label: 'Site Visits\nAttended', before: '36', after: '91', pct: '153' },
       { label: 'Property\nBookings', before: '7', after: '18', pct: '157' },
+      { label: 'Leads\nContacted', before: '40', after: '200', pct: '400' },
+      { label: 'Revenue\nGenerated', before: '₹8L', after: '₹42L', pct: '425' },
     ],
     roiLine1: 'TURN MORE LEADS INTO SITE VISITS AND SALES.',
     roiLine2: 'AI-powered follow-ups that drive real results.',

@@ -76,7 +76,7 @@ function AudioCard({ recording, index }) {
 export default function ProofDemo() {
   const { proof } = content
   return (
-    <section className="py-24 px-6" style={{ background: 'rgba(239,246,255,0.88)' }}>
+    <section id="proof" className="py-24 px-6" style={{ background: 'rgba(239,246,255,0.88)' }}>
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-14">
           <p className="font-body text-xs font-semibold tracking-widest uppercase text-sky mb-3">

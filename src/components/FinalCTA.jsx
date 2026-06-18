@@ -3,7 +3,7 @@ import content from '../content.js'
 export default function FinalCTA() {
   const { finalCta } = content
   return (
-    <section className="py-28 px-6" style={{ background: '#0F2A4A' }}>
+    <section id="demo" className="py-28 px-6" style={{ background: '#0F2A4A' }}>
       <div className="max-w-2xl mx-auto text-center">
         <h2 className="font-heading font-bold text-white text-4xl md:text-5xl mb-6 leading-tight">
           {finalCta.headline}

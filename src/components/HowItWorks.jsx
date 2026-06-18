@@ -1,322 +1,287 @@
-import { useState, useEffect, useRef } from 'react'
-import content from '../content.js'
+const NAVY = '#0F2A4A'
+const SKY = '#1D6FE8'
+const LIGHT_SKY = 'rgba(29,111,232,0.08)'
 
-// ─── Card panel ──────────────────────────────────────────────────────────────
+// ── Icons ────────────────────────────────────────────────────────────────────
 
-function CardPanel({ image, style = {} }) {
+function IconMeta() {
   return (
-    <div
-      style={{
-        position: 'absolute',
-        inset: 0,
-        borderRadius: '16px',
-        overflow: 'hidden',
-        border: '1px solid #E2E8F0',
-        background: '#FFFFFF',
-        boxShadow: '0 4px 24px rgba(15,42,74,0.10)',
-        ...style,
-      }}
-    >
-      <img src={image} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+      <circle cx="12" cy="12" r="10" stroke={SKY} strokeWidth="1.6" />
+      <path d="M16 8.5c-1 0-2 .8-2.8 2-1-1.6-2.5-2.7-3.7-2-.9.5-1.5 1.8-1.5 3.3 0 2.5 2 5.5 3.5 7 .3.3.7.5 1 .2C14.5 18 17 14.5 17 11.8c0-2-.7-3.3-1-3.3z" stroke={SKY} strokeWidth="1.4" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
+function IconBuilding() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+      <rect x="2" y="7" width="20" height="14" rx="2" stroke={SKY} strokeWidth="1.6" />
+      <path d="M8 21V7M16 21V7" stroke={SKY} strokeWidth="1.4" />
+      <rect x="10" y="2" width="4" height="5" rx="1" stroke={SKY} strokeWidth="1.4" />
+      <rect x="5" y="11" width="3" height="3" rx="0.5" fill={SKY} />
+      <rect x="16" y="11" width="3" height="3" rx="0.5" fill={SKY} />
+      <rect x="10.5" y="14" width="3" height="7" rx="0.5" fill={SKY} />
+    </svg>
+  )
+}
+
+function IconCRM() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+      <rect x="2" y="4" width="20" height="16" rx="2.5" stroke={SKY} strokeWidth="1.6" />
+      <line x1="2" y1="9" x2="22" y2="9" stroke={SKY} strokeWidth="1.4" />
+      <circle cx="6" cy="6.5" r="1" fill={SKY} />
+      <circle cx="9.5" cy="6.5" r="1" fill={SKY} />
+      <rect x="5" y="12" width="5" height="1.5" rx="0.75" fill={SKY} />
+      <rect x="5" y="15" width="8" height="1.5" rx="0.75" fill={SKY} />
+    </svg>
+  )
+}
+
+function IconPhone() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+      <path d="M6.5 2h11A1.5 1.5 0 0 1 19 3.5v17A1.5 1.5 0 0 1 17.5 22h-11A1.5 1.5 0 0 1 5 20.5v-17A1.5 1.5 0 0 1 6.5 2z" stroke={SKY} strokeWidth="1.6" />
+      <circle cx="12" cy="19" r="1" fill={SKY} />
+    </svg>
+  )
+}
+
+function IconAgent() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+      <circle cx="12" cy="8" r="4" stroke={SKY} strokeWidth="1.6" />
+      <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke={SKY} strokeWidth="1.6" strokeLinecap="round" />
+      <path d="M16 12l2 2-2 2" stroke={SKY} strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
+function IconWhatsApp() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+      <circle cx="12" cy="12" r="10" stroke={SKY} strokeWidth="1.6" />
+      <path d="M8 13.5c1.5 2 3.5 3 6 2.5l2 1-1-2c1-1.5 1-3.5 0-5C13.5 8 9 8.5 8 11.5c0 .7.2 1.4.5 2z" stroke={SKY} strokeWidth="1.4" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
+function IconReminder() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+      <circle cx="12" cy="12" r="9" stroke={SKY} strokeWidth="1.6" />
+      <path d="M12 7v5l3 3" stroke={SKY} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
+// ── Small building-block components ──────────────────────────────────────────
+
+function SourcePill({ icon, label }) {
+  return (
+    <div style={{
+      display: 'flex', alignItems: 'center', gap: '8px',
+      background: '#fff',
+      border: `1px solid #E2E8F0`,
+      borderRadius: '12px',
+      padding: '10px 16px',
+      boxShadow: '0 2px 8px rgba(15,42,74,0.06)',
+      flex: 1,
+      minWidth: 0,
+    }}>
+      <div style={{ width: 36, height: 36, borderRadius: 9, background: LIGHT_SKY, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+        {icon}
+      </div>
+      <span style={{ fontFamily: 'Inter, sans-serif', fontWeight: 600, fontSize: '0.78rem', color: NAVY, lineHeight: 1.3 }}>
+        {label}
+      </span>
     </div>
   )
 }
 
-// ─── Caption area ─────────────────────────────────────────────────────────────
-
-function Caption({ step, branch, hw, branchScene, onBranch, onSwitch }) {
+function FlowNode({ icon, title, sub, highlight }) {
   return (
-    <div
-      key={`${step}-${branch}`}
-      style={{ animation: 'fadeInCaption 300ms ease' }}
-    >
-      {step === 0 && (
-        <p className="font-body text-lg leading-relaxed" style={{ color: '#1A2B3C' }}>
-          {hw.scene1.caption}
+    <div style={{
+      background: highlight ? NAVY : '#fff',
+      border: highlight ? 'none' : '1px solid #E2E8F0',
+      borderRadius: '14px',
+      padding: '16px 20px',
+      display: 'flex',
+      alignItems: 'flex-start',
+      gap: '14px',
+      boxShadow: '0 2px 12px rgba(15,42,74,0.07)',
+      width: '100%',
+    }}>
+      <div style={{
+        width: 42, height: 42, borderRadius: 11,
+        background: highlight ? 'rgba(29,111,232,0.18)' : LIGHT_SKY,
+        display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+      }}>
+        {icon}
+      </div>
+      <div>
+        <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 700, fontSize: '0.9rem', color: highlight ? '#fff' : NAVY, marginBottom: '2px' }}>
+          {title}
         </p>
-      )}
-
-      {step === 1 && (
-        <p className="font-body text-lg leading-relaxed" style={{ color: '#1A2B3C' }}>
-          {hw.scene2.caption}
-        </p>
-      )}
-
-      {step === 2 && (
-        <div>
-          <p className="font-body text-sm mb-8" style={{ color: '#6B7280' }}>
-            {hw.branch.prompt}
+        {sub && (
+          <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.78rem', color: highlight ? '#94A3B8' : '#6B7280', lineHeight: 1.4 }}>
+            {sub}
           </p>
-          <div className="flex flex-col sm:flex-row gap-4">
-            <button
-              onClick={() => onBranch('qualified')}
-              className="font-body font-semibold px-7 py-3 rounded-lg text-sm transition-colors"
-              style={{ background: 'transparent', color: '#1D6FE8', border: '1px solid #1D6FE8' }}
-              onMouseEnter={e => { e.currentTarget.style.background = '#1D6FE8'; e.currentTarget.style.color = '#FFFFFF' }}
-              onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#1D6FE8' }}
-            >
-              {hw.branch.buttonQualified}
-            </button>
-            <button
-              onClick={() => onBranch('nurture')}
-              className="font-body font-semibold px-7 py-3 rounded-lg text-sm transition-colors"
-              style={{ background: 'transparent', color: '#1D6FE8', border: '1px solid #1D6FE8' }}
-              onMouseEnter={e => { e.currentTarget.style.background = '#1D6FE8'; e.currentTarget.style.color = '#FFFFFF' }}
-              onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#1D6FE8' }}
-            >
-              {hw.branch.buttonNurture}
-            </button>
-          </div>
-        </div>
-      )}
-
-      {step === 3 && branchScene && (
-        <div className="space-y-5">
-          {branchScene.captions.map((c, i) => (
-            <p key={i} className="font-body text-base leading-relaxed" style={{ color: '#1A2B3C' }}>
-              {c}
-            </p>
-          ))}
-          <button
-            onClick={onSwitch}
-            className="font-body text-sm text-sky underline underline-offset-4 hover:text-blue-700 transition-colors mt-2"
-          >
-            {branchScene.switchLink}
-          </button>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   )
 }
 
-// ─── Main component ───────────────────────────────────────────────────────────
+function ArrowDown() {
+  return (
+    <div style={{ display: 'flex', justifyContent: 'center', padding: '4px 0' }}>
+      <svg width="2" height="28" viewBox="0 0 2 28">
+        <line x1="1" y1="0" x2="1" y2="20" stroke="#CBD5E1" strokeWidth="2" strokeDasharray="4 3" />
+        <polygon points="-3,18 5,18 1,26" fill="#CBD5E1" />
+      </svg>
+    </div>
+  )
+}
+
+function ConvergeArrow() {
+  return (
+    <div style={{ display: 'flex', justifyContent: 'center', padding: '4px 0' }}>
+      <svg width="2" height="24" viewBox="0 0 2 24">
+        <line x1="1" y1="0" x2="1" y2="16" stroke="#CBD5E1" strokeWidth="2" />
+        <polygon points="-3,14 5,14 1,22" fill="#CBD5E1" />
+      </svg>
+    </div>
+  )
+}
+
+// ── Onboarding steps ─────────────────────────────────────────────────────────
+
+const onboardingSteps = [
+  { n: '1', title: 'Sign Up', desc: 'We set up your account in under 24 hours.' },
+  { n: '2', title: 'We Configure', desc: 'Our team connects your ad forms and trains the AI on your projects.' },
+  { n: '3', title: 'You Go Live', desc: 'Every new lead is called within 10 seconds — automatically.' },
+]
+
+// ── Main export ───────────────────────────────────────────────────────────────
 
 export default function HowItWorks() {
-  const { howItWorks: hw } = content
-
-  const [step, setStep] = useState(0)
-  const [branch, setBranch] = useState(null)
-  const [active, setActive] = useState(false)
-  const [leaving, setLeaving] = useState(false)
-
-  // Refs so event handlers can read current values without stale closures
-  const stepRef = useRef(0)
-  const branchRef = useRef(null)
-  const activeRef = useRef(false)
-  const leavingRef = useRef(false)
-  const lastTickRef = useRef(0)
-  const exitCooldownRef = useRef(0)
-  const sentinelRef = useRef(null)
-  const touchStartYRef = useRef(0)
-
-  // Keep refs in sync with state
-  useEffect(() => { stepRef.current = step }, [step])
-  useEffect(() => { branchRef.current = branch }, [branch])
-  useEffect(() => { activeRef.current = active }, [active])
-
-  function exitSection() {
-    if (leavingRef.current) return
-    leavingRef.current = true
-    setLeaving(true)
-    activeRef.current = false
-    exitCooldownRef.current = Date.now()
-    setTimeout(() => {
-      setActive(false)
-      setLeaving(false)
-      leavingRef.current = false
-      stepRef.current = 0; setStep(0)
-      branchRef.current = null; setBranch(null)
-    }, 350)
-  }
-
-  // Shared step-advance logic used by both wheel and touch handlers
-  function advanceStep(down) {
-    const s = stepRef.current
-    const b = branchRef.current
-    const maxStep = b !== null ? 3 : 2
-
-    // Block at branch choice until clicked
-    if (s === 2 && b === null && down) return true // preventDefault, but don't advance
-
-    // At bounds: exit section (allow natural scroll)
-    if ((down && s >= maxStep) || (!down && s <= 0)) {
-      exitSection()
-      return false // don't preventDefault → natural scroll continues
-    }
-
-    // Within bounds: advance step
-    const now = Date.now()
-    if (now - lastTickRef.current < 400) return true // debounce — still intercept
-    lastTickRef.current = now
-
-    const next = s + (down ? 1 : -1)
-    stepRef.current = next
-    setStep(next)
-    return true // preventDefault
-  }
-
-  // Wheel listener (registered once — reads state via refs)
-  useEffect(() => {
-    const handleWheel = (e) => {
-      if (!activeRef.current) return
-      const shouldPrevent = advanceStep(e.deltaY > 0)
-      if (shouldPrevent) e.preventDefault()
-    }
-
-    window.addEventListener('wheel', handleWheel, { passive: false })
-    return () => window.removeEventListener('wheel', handleWheel)
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
-
-  // Touch listener
-  useEffect(() => {
-    const handleTouchStart = (e) => {
-      touchStartYRef.current = e.touches[0].clientY
-    }
-
-    const handleTouchMove = (e) => {
-      if (!activeRef.current) return
-      const deltaY = touchStartYRef.current - e.touches[0].clientY
-      if (Math.abs(deltaY) < 20) return
-      const shouldPrevent = advanceStep(deltaY > 0)
-      if (shouldPrevent) {
-        e.preventDefault()
-        touchStartYRef.current = e.touches[0].clientY
-      }
-    }
-
-    window.addEventListener('touchstart', handleTouchStart, { passive: true })
-    window.addEventListener('touchmove', handleTouchMove, { passive: false })
-    return () => {
-      window.removeEventListener('touchstart', handleTouchStart)
-      window.removeEventListener('touchmove', handleTouchMove)
-    }
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
-
-  // IntersectionObserver: activate when sentinel enters viewport
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !activeRef.current && !leavingRef.current) {
-          if (Date.now() - exitCooldownRef.current > 800) {
-            activeRef.current = true
-            setActive(true)
-          }
-        }
-      },
-      { threshold: 0.5 }
-    )
-    if (sentinelRef.current) observer.observe(sentinelRef.current)
-    return () => observer.disconnect()
-  }, [])
-
-  const branchScene = branch === 'qualified' ? hw.qualified : branch === 'nurture' ? hw.nurture : null
-
-  function handleBranch(b) {
-    branchRef.current = b
-    stepRef.current = 3
-    setBranch(b)
-    setStep(3)
-  }
-
-  function handleSwitch() {
-    branchRef.current = null
-    stepRef.current = 2
-    setBranch(null)
-    setStep(2)
-  }
-
   return (
-    <>
-      {/* Sentinel — holds place in page flow */}
-      <div ref={sentinelRef} style={{ height: '100vh', position: 'relative' }} />
+    <section id="how-it-works" className="py-20 px-4 sm:px-6" style={{ background: 'rgba(248,250,252,0.88)' }}>
+      <div className="max-w-2xl mx-auto">
 
-      {/* Fixed overlay — rendered when active or fading out */}
-      {(active || leaving) && (
-        <div
-          style={{
-            position: 'fixed',
-            top: 0, left: 0,
-            width: '100%', height: '100%',
-            zIndex: 40,
-            background: 'rgba(248,250,252,0.96)',
-            display: 'flex',
-            flexDirection: 'column',
-            overflow: 'hidden',
-            opacity: leaving ? 0 : 1,
-            transition: 'opacity 350ms ease',
-          }}
-        >
-          {/* Header */}
-          <div style={{ padding: '40px 32px 16px', textAlign: 'center' }}>
-            <p className="font-body text-xs font-semibold tracking-widest uppercase text-sky mb-2">
-              {hw.eyebrow}
-            </p>
-            <h2 className="font-heading font-bold text-navy text-3xl md:text-4xl">
-              {hw.headline}
-            </h2>
-          </div>
-
-          {/* Body: card stack + caption */}
-          <div
-            className="flex flex-col md:flex-row items-center justify-center gap-10 md:gap-16 flex-1 px-6 md:px-16 pb-8"
-          >
-            {/* Card stack */}
-            <div style={{ position: 'relative', width: '340px', height: '340px', flexShrink: 0 }}>
-              {/* Scene 1 — always shown */}
-              <CardPanel image={hw.scene1.image} style={{ zIndex: 1 }} />
-
-              {/* Scene 2 — fades + scales in at step 1 */}
-              <CardPanel
-                image={hw.scene2.image}
-                style={{
-                  zIndex: 2,
-                  opacity: step >= 1 ? 1 : 0,
-                  transform: step >= 1
-                    ? 'translate(20px, 20px) rotate(4deg) scale(1)'
-                    : 'translate(20px, 20px) rotate(4deg) scale(0.85)',
-                  transition: 'opacity 380ms ease, transform 380ms ease',
-                }}
-              />
-
-              {/* Scene 3/4 — fades + scales in at step 3 */}
-              {branchScene && (
-                <CardPanel
-                  image={branchScene.image}
-                  style={{
-                    zIndex: 3,
-                    opacity: step >= 3 ? 1 : 0,
-                    transform: step >= 3
-                      ? 'translate(-40px, 40px) rotate(-3deg) scale(1)'
-                      : 'translate(-40px, 40px) rotate(-3deg) scale(0.85)',
-                    transition: 'opacity 380ms ease, transform 380ms ease',
-                  }}
-                />
-              )}
-            </div>
-
-            {/* Caption */}
-            <div style={{ flex: 1, maxWidth: '380px' }}>
-              <Caption
-                step={step}
-                branch={branch}
-                hw={hw}
-                branchScene={branchScene}
-                onBranch={handleBranch}
-                onSwitch={handleSwitch}
-              />
-            </div>
-          </div>
-
-          {/* Scroll hint at step 0 and 1 */}
-          {step < 2 && (
-            <div style={{ textAlign: 'center', paddingBottom: '24px', opacity: 0.45 }}>
-              <p className="font-body text-xs tracking-widest uppercase" style={{ color: '#6B7280' }}>
-                scroll to continue
-              </p>
-            </div>
-          )}
+        {/* Header */}
+        <div className="text-center mb-10">
+          <p className="font-body text-xs font-semibold tracking-widest uppercase text-sky mb-3">
+            How It Works
+          </p>
+          <h2 className="font-heading font-bold text-navy text-3xl md:text-4xl leading-tight mb-3">
+            Every Lead, Fully Handled
+          </h2>
+          <p className="font-body text-base leading-relaxed" style={{ color: '#6B7280' }}>
+            From ad click to qualified site visit — here is what happens automatically.
+          </p>
         </div>
-      )}
-    </>
+
+        {/* Flowchart */}
+        <div>
+
+          {/* Source platforms */}
+          <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+            <SourcePill icon={<IconMeta />} label="Meta Ads" />
+            <SourcePill icon={<IconBuilding />} label="MagicBricks" />
+            <SourcePill icon={<IconBuilding />} label="99Acres / Housing.com" />
+          </div>
+
+          <ConvergeArrow />
+
+          {/* CRM */}
+          <FlowNode
+            icon={<IconCRM />}
+            title="Leads Land in Your CRM"
+            sub="All inquiries from every platform are captured automatically in one place."
+          />
+
+          <ArrowDown />
+
+          {/* AI Call */}
+          <FlowNode
+            icon={<IconPhone />}
+            title="AI Voice Call Within 10 Seconds"
+            sub="The AI calls the lead the moment they submit — before they've even closed the tab."
+            highlight
+          />
+
+          <ArrowDown />
+
+          {/* Agent qualifies */}
+          <FlowNode
+            icon={<IconAgent />}
+            title="Agent Engages, Qualifies & Books Site Visit"
+            sub="Budget, timeline, and project preference — all gathered on the first call."
+          />
+
+          <ArrowDown />
+
+          {/* WhatsApp */}
+          <FlowNode
+            icon={<IconWhatsApp />}
+            title="WhatsApp Confirmation Sent"
+            sub="Date, time, and project address delivered instantly to the lead's phone."
+          />
+
+          <ArrowDown />
+
+          {/* Reminder */}
+          <FlowNode
+            icon={<IconReminder />}
+            title="Follow-Up Call + Site Visit Reminder"
+            sub="Automated reminders reduce no-shows and keep your calendar full."
+          />
+        </div>
+
+        {/* Onboarding sub-section */}
+        <div className="mt-14">
+          <p className="font-body text-xs font-semibold tracking-widest uppercase text-sky mb-2 text-center">
+            Getting Started
+          </p>
+          <h3 className="font-heading font-bold text-navy text-xl md:text-2xl text-center mb-8">
+            Live In Under 48 Hours
+          </h3>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
+            {onboardingSteps.map((s, i) => (
+              <div key={i} style={{ display: 'flex', gap: '16px', alignItems: 'flex-start', position: 'relative' }}>
+                {/* Step number + connector line */}
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flexShrink: 0 }}>
+                  <div style={{
+                    width: 36, height: 36, borderRadius: '50%',
+                    background: SKY, color: '#fff',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    fontFamily: 'Poppins, sans-serif', fontWeight: 700, fontSize: '0.875rem',
+                    flexShrink: 0,
+                  }}>
+                    {s.n}
+                  </div>
+                  {i < onboardingSteps.length - 1 && (
+                    <div style={{ width: '2px', flex: 1, background: '#E2E8F0', minHeight: '32px', margin: '4px 0' }} />
+                  )}
+                </div>
+                {/* Text */}
+                <div style={{ paddingBottom: i < onboardingSteps.length - 1 ? '24px' : '0' }}>
+                  <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 700, fontSize: '0.95rem', color: NAVY, marginBottom: '4px' }}>
+                    {s.title}
+                  </p>
+                  <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.85rem', color: '#6B7280', lineHeight: 1.5 }}>
+                    {s.desc}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </div>
+    </section>
   )
 }

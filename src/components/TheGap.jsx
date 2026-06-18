@@ -38,7 +38,7 @@ function CircleCheckIcon() {
 export default function TheGap() {
   const { gap } = content
   return (
-    <section className="py-24 px-6" style={{ background: 'rgba(239,246,255,0.88)' }}>
+    <section id="about" className="py-24 px-6" style={{ background: 'rgba(239,246,255,0.88)' }}>
       <div className="max-w-5xl mx-auto">
         <div className="text-center mb-14">
           <p className="font-body text-xs font-semibold tracking-widest uppercase text-sky mb-3">

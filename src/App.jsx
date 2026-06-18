@@ -1,3 +1,4 @@
+import Navbar from './components/Navbar.jsx'
 import Hero from './components/Hero.jsx'
 import TheGap from './components/TheGap.jsx'
 import TheOffer from './components/TheOffer.jsx'
@@ -8,14 +9,17 @@ import FAQ from './components/FAQ.jsx'
 
 export default function App() {
   return (
-    <main>
-      <Hero />
-      <TheOffer />
-      <TheGap />
-      <ProofDemo />
-      <HowItWorks />
-      <FinalCTA />
-      <FAQ />
-    </main>
+    <>
+      <Navbar />
+      <main>
+        <Hero />
+        <TheOffer />
+        <TheGap />
+        <ProofDemo />
+        <HowItWorks />
+        <FinalCTA />
+        <FAQ />
+      </main>
+    </>
   )
 }
